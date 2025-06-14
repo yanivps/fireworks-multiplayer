@@ -1,165 +1,161 @@
-# Hanabi Online
+# Multiplayer Card Games Project
 
-A real-time multiplayer implementation of the cooperative card game Hanabi, built with Node.js, Express, and Socket.IO.
+This project contains a reusable framework for building online multiplayer turn-based card games, along with implementations of specific games.
 
-## 🎯 Current Status
+## 🏗️ Project Structure
 
-### ✅ Completed Features
+```
+├── multiplayer-card-game-framework/    # Reusable framework for multiplayer card games
+├── hanabi/                            # Hanabi card game implementation
+├── war/                               # War card game implementation
+└── README.md                          # This file
+```
 
-#### Backend/Server Setup
-- ✅ Node.js/Express server with Socket.IO for real-time multiplayer
-- ✅ Room management system with unique 6-character room codes
-- ✅ Player connection/disconnection handling with 5-minute reconnection grace period
-- ✅ Automatic 30-minute inactivity room cleanup
-- ✅ Host transfer when original host disconnects
+## 🎮 Games
 
-#### Game State Management
-- ✅ Complete Hanabi deck generation (5 colors, proper card distribution)
-- ✅ Random card dealing with correct hand sizes (5 cards for 2-3 players, 4 cards for 4-5 players)
-- ✅ Turn management system with fixed turn order
-- ✅ Clue token management (start with 8, max 8)
-- ✅ Fuse token management (start with 3, max 3)
-- ✅ Fireworks pile state tracking for all 5 colors
+### Hanabi
+A cooperative card game where players work together to create fireworks displays. Features:
+- 2-5 players
+- Cooperative gameplay
+- Hidden information mechanics
+- Clue system with visual feedback
+- Real-time multiplayer with reconnection support
 
-#### Game Actions
-- ✅ **Play Card**: Validate and execute card plays, handle invalid plays (lose fuse token)
-- ✅ **Discard Card**: Remove card from hand, gain clue token, draw replacement
-- ✅ **Give Clue**: Color and number clues with validation and highlighting
+**Status**: ✅ Fully implemented and playable
 
-#### Game End Conditions & Scoring
-- ✅ **Perfect Score Detection**: Automatic win when all fireworks completed (25 points)
-- ✅ **Fuse Token Loss**: Game ends when all 3 fuse tokens are lost
-- ✅ **Deck Exhaustion**: Final round system when deck runs out
-- ✅ **Player Disconnection**: 5-minute timeout handling
-- ✅ **Score Rating System**: 9-tier rating system from "Terrible" to "Legendary"
-- ✅ **Game Summary**: Detailed statistics and fireworks progress
-- ✅ **Play Again**: Host can restart with same players
+### War
+A classic two-player card game where players battle with cards from their deck.
 
-#### Basic Frontend
-- ✅ Room creation and joining interface
-- ✅ Real-time player list with host indicator
-- ✅ Game start functionality (host only)
-- ✅ Basic game board with fireworks piles, token displays, and player hands
-- ✅ Card interaction (play/discard) with turn validation
-- ✅ Visual distinction between own cards (hidden) and others' cards (visible)
+**Status**: 🚧 Framework integration complete, game rules implementation pending
 
-#### Enhanced Lobby System (NEW!)
-- ✅ **Real-time Synchronization**: Player lists update instantly across all clients
-- ✅ **Host Transfer**: Automatic host reassignment with immediate UI updates
-- ✅ **Connection Status**: Visual indicators for online/offline players
-- ✅ **Smart Validation**: Real-time player count validation (2-5 players)
-- ✅ **Modern UI**: Card-based layout with hover effects and animations
-- ✅ **Room Code Sharing**: One-click copy functionality
-- ✅ **Keyboard Navigation**: Full Enter key support for all forms
-- ✅ **Session Persistence**: Better handling of page refreshes
+## 🔧 Framework
 
-## 🚀 Getting Started
+The `multiplayer-card-game-framework` provides reusable infrastructure for building online multiplayer card games:
 
-### Prerequisites
-- Node.js (v14 or higher)
-- npm
+- **Room Management**: Create, join, and manage game rooms
+- **Player Management**: Handle connections, disconnections, and reconnections  
+- **Turn-Based Flow**: Built-in turn management system
+- **Real-time Communication**: Socket.IO integration
+- **Game State Sync**: Automatic state synchronization across clients
+- **Extensible Architecture**: Plugin-based system for different games
 
-### Installation
+### Framework Features
+
+- ✅ Room creation and joining with unique codes
+- ✅ Player connection/disconnection handling
+- ✅ Host management and transfer
+- ✅ Turn-based game orchestration
+- ✅ Action validation and processing
+- ✅ Game state broadcasting
+- ✅ Reconnection support
+- ✅ Health monitoring endpoints
+- ✅ Automatic room cleanup
+
+## 🚀 Quick Start
+
+### Running Hanabi
 ```bash
-# Clone the repository
-git clone <repository-url>
 cd hanabi
-
-# Install dependencies
 npm install
-
-# Start the server
 npm start
+# Visit http://localhost:3000
 ```
 
-The server will start on `http://localhost:3000`
-
-### Testing
+### Running War
 ```bash
-# Run game logic tests
-node test/gameLogic.test.js
-
-# Check server health
-curl http://localhost:3000/health
+cd war
+npm install
+npm start
+# Visit http://localhost:3002
 ```
 
-## 🎮 How to Play
-
-1. **Create or Join Room**: One player creates a room and shares the room code with others
-2. **Start Game**: Host clicks "Start Game" when 2-5 players have joined
-3. **Take Turns**: Players take turns performing one of three actions:
-   - **Play Card**: Click a card in your hand and choose "Play" (1)
-   - **Discard Card**: Click a card in your hand and choose "Discard" (2)
-   - **Give Clue**: (Not yet implemented in UI)
-
-### Game Rules
-- **Objective**: Build fireworks piles from 1 to 5 in each color
-- **Your Hand**: You can see other players' cards but not your own
-- **Clue Tokens**: Start with 8, use 1 to give clues, gain 1 when discarding
-- **Fuse Tokens**: Start with 3, lose 1 for invalid plays, game ends at 0
-- **Winning**: Complete all 5 fireworks (score 25) or get the highest score when deck runs out
-
-## 🏗️ Architecture
-
-### Backend Structure
-```
-server.js           # Main server with Socket.IO handlers
-game/
-  ├── gameState.js  # Core game state management
-  └── gameActions.js # Game action handlers (play, discard, clue)
-test/
-  └── gameLogic.test.js # Game logic tests
+### Using the Framework
+```bash
+cd multiplayer-card-game-framework
+npm install
+node examples/basic-server.js
+# Visit http://localhost:3001
 ```
 
-### Key Components
-- **Room Management**: Unique codes, player tracking, host transfer
-- **Game State**: Deck generation, hand management, turn tracking
-- **Action System**: Validated game actions with real-time updates
-- **Connection Handling**: Reconnection support, cleanup systems
+## 🛠️ Development
 
-## 🔄 Real-time Communication
+### Creating a New Game
 
-### Socket Events
-- `createRoom` / `joinRoom` - Room management
-- `startGame` - Initialize game state
-- `playCard` / `discardCard` / `giveClue` - Game actions
-- `gameStarted` / `actionResult` - Game state updates
+1. Create a new directory for your game
+2. Install dependencies and reference the framework
+3. Extend `GameImplementation` class:
 
-## 🧪 Testing
+```javascript
+const { GameImplementation } = require('../multiplayer-card-game-framework/src/shared/GameImplementation');
 
-The game includes comprehensive tests for:
-- Game state creation and validation
-- Card playing (valid and invalid)
-- Discard and clue actions
-- Turn management
-- Token systems
+class MyCardGame extends GameImplementation {
+  getGameConfig() {
+    return {
+      minPlayers: 2,
+      maxPlayers: 4,
+      name: 'My Card Game',
+      version: '1.0.0'
+    };
+  }
 
-## 📋 Next Steps
+  createInitialState(playerIds) {
+    // Initialize your game state
+  }
 
-See `todo.md` for the complete roadmap. Key upcoming features:
-- Complete clue giving UI
-- Enhanced game board layout
-- Game end conditions and scoring
-- Better visual feedback and animations
-- Mobile responsiveness
+  validateAction(action, gameState, playerId) {
+    // Validate player actions
+  }
 
-## 🎯 Game Rules Reference
+  processAction(action, gameState, playerId) {
+    // Process valid actions
+  }
 
-### Card Distribution (per color)
-- **1**: 3 copies
-- **2**: 2 copies  
-- **3**: 2 copies
-- **4**: 2 copies
-- **5**: 1 copy
+  checkEndConditions(gameState) {
+    // Check if game should end
+  }
+}
+```
 
-### Hand Sizes
-- **2-3 players**: 5 cards each
-- **4-5 players**: 4 cards each
+4. Create server using the framework:
 
-### Tokens
-- **Clue Tokens**: Start with 8, max 8
-- **Fuse Tokens**: Start with 3, game ends at 0
+```javascript
+const { GameServer } = require('../multiplayer-card-game-framework/src/server');
+const MyCardGame = require('./MyCardGame');
 
----
+const server = new GameServer(new MyCardGame(), { port: 3003 });
+server.start();
+```
 
-Built with ❤️ for the Hanabi community 
+### Framework Architecture
+
+The framework separates concerns into distinct layers:
+
+- **Shared Models**: `Player`, `Room`, `GameImplementation`
+- **Server Core**: `GameServer`, `RoomManager`
+- **Game Logic**: Implemented by extending `GameImplementation`
+- **Client Integration**: Standardized Socket.IO events
+
+## 📊 Benefits
+
+- **🔄 Reusability**: Core multiplayer logic works for any turn-based card game
+- **🧪 Testability**: Framework components can be unit tested independently
+- **🛠️ Maintainability**: Bug fixes in framework benefit all games
+- **⚡ Rapid Development**: New games focus on game logic, not infrastructure
+- **📈 Scalability**: Built-in room management and cleanup
+- **🔌 Extensibility**: Plugin architecture for game-specific features
+
+## 🎯 Roadmap
+
+- [ ] Complete War game implementation
+- [ ] Client-side framework components
+- [ ] Database persistence layer
+- [ ] Spectator mode
+- [ ] Tournament system
+- [ ] Admin dashboard
+- [ ] Game replay system
+- [ ] AI player support
+- [ ] Publish framework as npm package
+
+## 📝 License
+
+MIT License - see individual project directories for details. 

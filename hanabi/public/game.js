@@ -34,6 +34,11 @@ function initSocket() {
         handleSocketError(data);
     });
     
+    socket.on('actionError', (data) => {
+        log(`Action error: ${data.message}`);
+        showGameMessage(data.message, 'error');
+    });
+    
     socket.on('roomCreated', (data) => {
         log(`Room created: ${data.roomCode}`);
         currentRoom = data.roomCode;
@@ -74,60 +79,76 @@ function initSocket() {
     
     socket.on('playerJoined', (data) => {
         log(`Player joined: ${data.player.nickname}`);
-        // Request updated room state to refresh player list
-        requestRoomState();
+        // Update room display with the room data from the event
+        if (data.room) {
+            // Extract players from room data for the display function
+            const roomDisplayData = {
+                roomCode: data.room.code,
+                players: data.room.players
+            };
+            updateRoomDisplay(roomDisplayData);
+        }
     });
     
     socket.on('playerDisconnected', (data) => {
         log(`Player disconnected: ${data.nickname}`);
-        // Request updated room state to refresh player list
-        requestRoomState();
+        // The framework doesn't send room data with playerDisconnected
+        // Player disconnections don't change the player list immediately
+        // Reconnection handling is managed by the framework
     });
     
     socket.on('playerReconnected', (data) => {
-        log(`Player reconnected: ${data.nickname}`);
-        // Request updated room state to refresh player list
-        requestRoomState();
+        log(`Player reconnected: ${data.player.nickname}`);
+        // The framework doesn't send room data with playerReconnected,
+        // but the reconnected player gets full state via the reconnected event
+        // No room update needed here as room state doesn't change
     });
     
     socket.on('hostChanged', (data) => {
         log(`New host: ${data.newHostNickname}`);
         isHost = (data.newHostId === currentPlayerId);
-        // Request updated room state to refresh player list with new host
-        requestRoomState();
+        // Update room display if room data is provided
+        if (data.room) {
+            updateRoomDisplay(data);
+        }
     });
     
-    socket.on('gameStarted', (data) => {
-        log('Game started!');
-        gameState = data.gameState;
-        showGameSection();
-        updateGameDisplay();
-    });
-    
-    socket.on('actionResult', (data) => {
-        log(`Action: ${data.action.action}`);
-        console.log('Action result received:', data);
+    socket.on('gameStateUpdate', (data) => {
+        console.log('Game state update received:', data);
         
-        // Update game state first
-        gameState = data.gameState;
-        
-        // Handle different action types with enhanced visual feedback
-        if (data.action.action === 'play') {
-            handlePlayActionResult(data.action);
-        } else if (data.action.action === 'discard') {
-            handleDiscardActionResult(data.action);
-        } else if (data.action.action === 'clue') {
-            handleClueActionResult(data.action);
+        // Check if game just started
+        if (!gameState && data.gameState && data.gameState.status === 'playing') {
+            log('Game started!');
+            showGameSection();
         }
         
-        // Update display after handling specific action feedback
+        // Update game state
+        gameState = data.gameState;
+        
+        // Handle action result if present
+        if (data.actionResult) {
+            log(`Action: ${data.actionResult.actionType || data.actionResult.action}`);
+            
+            // Handle different action types with enhanced visual feedback
+            if (data.actionResult.action === 'play' || data.actionResult.actionType === 'play') {
+                handlePlayActionResult(data.actionResult);
+            } else if (data.actionResult.action === 'discard' || data.actionResult.actionType === 'discard') {
+                handleDiscardActionResult(data.actionResult);
+            } else if (data.actionResult.action === 'clue' || data.actionResult.actionType === 'clue') {
+                handleClueActionResult(data.actionResult);
+            }
+        }
+        
+        // Update display
         updateGameDisplay();
-    });
-    
-    socket.on('gameState', (data) => {
-        if (data.gameState) {
-            gameState = data.gameState;
-            updateGameDisplay();
+        
+        // Check for game end
+        if (gameState && gameState.status === 'ended') {
+            log(`Game ended: ${gameState.endReason || 'Game completed'}`);
+            showGameEndSection({
+                endReason: gameState.endReason || 'Game completed',
+                summary: gameState.result
+            });
         }
     });
     

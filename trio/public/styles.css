@@ -1,0 +1,1310 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #333;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* Header */
+.game-header {
+    text-align: center;
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.game-header h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.game-header p {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.connection-status {
+    margin-top: 10px;
+}
+
+.status {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.9em;
+}
+
+.status.connecting {
+    background: #ffeaa7;
+    color: #d63031;
+}
+
+.status.connected {
+    background: #00b894;
+    color: white;
+}
+
+.status.disconnected {
+    background: #d63031;
+    color: white;
+}
+
+/* Section Base */
+.section {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+/* Lobby Section */
+.lobby-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.create-room, .join-room {
+    text-align: center;
+}
+
+.create-room h2, .join-room h2 {
+    margin-bottom: 20px;
+    color: #2d3436;
+}
+
+.game-rules {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+}
+
+.game-rules h3 {
+    margin-bottom: 15px;
+    color: #2d3436;
+}
+
+.game-rules ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.game-rules li {
+    margin-bottom: 10px;
+    padding: 8px;
+    background: white;
+    border-radius: 5px;
+    border-left: 3px solid #667eea;
+}
+
+/* Form Elements */
+input[type="text"] {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* Buttons */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-success {
+    background: #00b894;
+    color: white;
+}
+
+.btn-danger {
+    background: #d63031;
+    color: white;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid #667eea;
+    color: #667eea;
+}
+
+.btn-outline:hover {
+    background: #667eea;
+    color: white;
+}
+
+.btn-outline.selected {
+    background: #667eea;
+    color: white;
+}
+
+/* Room Section */
+.room-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.room-header h2 {
+    color: #2d3436;
+}
+
+.players-section {
+    margin-bottom: 30px;
+}
+
+.players-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.player {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.player.host {
+    border-left-color: #00b894;
+}
+
+.player.disconnected {
+    opacity: 0.6;
+    border-left-color: #d63031;
+}
+
+.player-name {
+    font-weight: 600;
+    color: #2d3436;
+}
+
+.player-badge {
+    background: #667eea;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 500;
+}
+
+.player.host .player-badge {
+    background: #00b894;
+}
+
+.player.disconnected .player-badge {
+    background: #d63031;
+}
+
+.game-start {
+    text-align: center;
+}
+
+.game-config {
+    margin-top: 10px;
+    color: #666;
+    font-style: italic;
+}
+
+/* Game Section */
+.game-status {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border-left: 4px solid #667eea;
+}
+
+.current-turn h3 {
+    margin-bottom: 10px;
+    color: #2d3436;
+}
+
+/* .turn-info {
+    color: #666;
+    font-size: 1.1em;
+}
+
+.turn-info strong {
+    color: #667eea;
+    font-size: 1.2em;
+} */
+
+/* Action Area */
+.action-area {
+    margin-bottom: 30px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+/* Mismatch modal - upper right corner, no overlay */
+.modal.mismatch-modal {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: auto;
+    height: auto;
+    background: none;
+    display: block;
+    justify-content: unset;
+    align-items: unset;
+    z-index: 1000;
+}
+
+/* Game Over modal - positioned over game-status */
+.modal.game-over-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: none;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 20px;
+    z-index: 1500;
+}
+
+.modal.game-over-modal.hidden {
+    display: none;
+}
+
+.modal.mismatch-modal.hidden {
+    display: none;
+}
+
+.modal.mismatch-modal .modal-content {
+    background: linear-gradient(135deg, #fff 0%, #fff8f0 100%);
+    color: #2d3436;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    max-width: 350px;
+    width: auto;
+    border: 2px solid #e17055;
+    animation: slideInFromRight 0.3s ease-out;
+    backdrop-filter: blur(10px);
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Specific styling for mismatch modal content */
+.modal.mismatch-modal .modal-content h4 {
+    color: #e17055;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.modal.mismatch-modal .modal-content p {
+    margin-bottom: 20px;
+    line-height: 1.5;
+    color: #555;
+    text-align: center;
+}
+
+.modal.mismatch-modal .modal-buttons .btn {
+    background: linear-gradient(45deg, #e17055, #d63031);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 100px;
+}
+
+.modal.mismatch-modal .modal-buttons .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(225, 112, 85, 0.4);
+}
+
+.modal.mismatch-modal .modal-buttons .btn:disabled {
+    background: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    opacity: 0.7;
+}
+
+.modal.mismatch-modal .modal-buttons .btn:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Game over modal content styling */
+.modal.game-over-modal .modal-content {
+    background: linear-gradient(135deg, #fff 0%, #f0f8ff 100%);
+    color: #2d3436;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 90%;
+    border: 2px solid #00b894;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal.game-over-modal .modal-content h4 {
+    color: #00b894;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.modal.game-over-modal .modal-content p {
+    margin-bottom: 20px;
+    line-height: 1.5;
+    color: #555;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+.modal-stats {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid #00b894;
+}
+
+.modal.game-over-modal .modal-buttons .btn {
+    background: linear-gradient(45deg, #00b894, #00a085);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 150px;
+    font-size: 1em;
+}
+
+.modal.game-over-modal .modal-buttons .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 184, 148, 0.4);
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 90%;
+}
+
+.modal-content h4 {
+    margin-bottom: 20px;
+    color: #2d3436;
+    text-align: center;
+}
+
+.hand-selection {
+    margin-bottom: 20px;
+}
+
+.player-selection, .position-selection {
+    margin-bottom: 15px;
+}
+
+.player-selection label, .position-selection label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2d3436;
+}
+
+.player-selection select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+}
+
+.position-selection {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.position-selection label {
+    margin-bottom: 0;
+    margin-right: 10px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* Game Instructions */
+.game-instructions {
+    text-align: center;
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #00b894;
+}
+
+.game-instructions p {
+    margin: 0;
+    color: #2d3436;
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+/* Game Board */
+.game-board {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    min-height: 600px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.revealed-cards {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+}
+
+.revealed-cards h4 {
+    margin-bottom: 15px;
+    color: #2d3436;
+}
+
+/* Middle pile - centered in game area */
+.middle-pile-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    z-index: 1;
+    max-width: 300px;
+    border: 2px solid #667eea;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Adjust middle pile position for 3 players */
+.game-board:has(.hands-container.players-3) .middle-pile-center {
+    top: 40%;
+}
+
+/* Adjust middle pile position for 5 players */
+.game-board:has(.hands-container.players-5) .middle-pile-center {
+    top: 40%;
+}
+
+
+/* Adjust middle pile position for 6 players */
+.game-board:has(.hands-container.players-6) .middle-pile-center {
+    top: 46%;
+}
+
+
+.middle-pile-center h4 {
+    margin: 0 0 10px 0;
+    color: #2d3436;
+    font-size: 14px;
+}
+
+.middle-pile-grid {
+    display: grid;
+    gap: 5px;
+    justify-items: center;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* Adjust grid columns based on card count for better layout */
+.middle-pile-grid:has(.card:nth-child(1):nth-last-child(n+1):nth-last-child(-n+2)) { 
+    grid-template-columns: repeat(2, 1fr); 
+}
+.middle-pile-grid:has(.card:nth-child(1):nth-last-child(n+3):nth-last-child(-n+3)) { 
+    grid-template-columns: repeat(3, 1fr); 
+}
+.middle-pile-grid:has(.card:nth-child(1):nth-last-child(n+4):nth-last-child(-n+6)) { 
+    grid-template-columns: repeat(3, 1fr); 
+}
+.middle-pile-grid:has(.card:nth-child(1):nth-last-child(n+7):nth-last-child(-n+8)) { 
+    grid-template-columns: repeat(4, 1fr); 
+}
+.middle-pile-grid:has(.card:nth-child(1):nth-last-child(n+9)) { 
+    grid-template-columns: repeat(3, 1fr); 
+}
+
+.card-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    min-height: 60px;
+    align-items: center;
+}
+
+/* Cards */
+.card {
+    width: 45px;
+    height: 65px;
+    background: white;
+    border: 2px solid #333;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Only apply hover animation to own hand cards that are clickable */
+.player-hand.own-hand .card.clickable:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* For other players' cards, only apply subtle hover effect to clickable cards */
+.player-hand:not(.own-hand) .card.clickable:hover {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+/* Add floating animation to middle pile cards (only for current player) */
+.middle-pile-grid .card.clickable-middle:hover {
+    /* transform: translateY(-3px); */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border: 2px solid #b3d9ff;
+}
+
+/* Disable card hover effects when modal is open (except for revealed cards) */
+.game-board.modal-open .card:not(.revealed):hover {
+    transform: none !important;
+    box-shadow: none !important;
+    border: 2px solid #333 !important;
+}
+
+/* Disable all card hover effects when modal is open */
+.game-board.modal-open .trio .card:hover {
+    transform: none !important;
+    box-shadow: none !important;
+    border: 1px solid #333 !important;
+    cursor: default !important;
+}
+
+.card.face-down {
+    background-image: url('assets/back.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: transparent;
+    cursor: pointer;
+    font-size: 0;
+}
+
+.card.face-down-owner {
+    background-image: url('assets/back.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: transparent;
+    border: 2px solid #333;
+    font-size: 0;
+}
+
+.card.revealed {
+    /* background: #b3d9ff; */
+    color: white;
+    /* border-color: #b3d9ff; */
+    box-shadow: 0 0 8px rgba(0, 184, 148, 0.5);
+    /* transform: scale(1.05); */
+    z-index: 10;
+    position: relative;
+}
+
+/* Removed .card.number-7 styling - now handled by card images */
+
+/* Hands Container - Circular Layout */
+.hands-container {
+    position: relative;
+    flex: 1;
+    min-height: 700px;
+    padding: 40px 20px 20px 20px;
+    overflow: visible;
+}
+
+.player-hand {
+    position: absolute;
+    padding: 18px 12px 12px 12px;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    min-width: 240px;
+    max-width: 320px;
+    overflow: visible;
+}
+
+.hands-container.players-4 .player-hand {
+    max-width: 370px;
+}
+
+.hands-container.players-3 .player-hand {
+    max-width: 470px;
+}
+
+.player-hand.current-turn {
+    border-color: #00b894;
+    box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.2);
+}
+
+.player-hand.own-hand {
+    border-color: #d63031;
+    background: linear-gradient(135deg, #fff 0%, #fff8f0 100%);
+}
+
+.player-hand h4 {
+    margin: 0 0 8px 0;
+    font-size: 13px;
+    color: #333;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.player-hand .player-name {
+    font-weight: bold;
+}
+
+.player-hand .turn-indicator {
+    color: #00b894;
+    font-size: 11px;
+    margin-top: 3px;
+}
+
+/* .card-count-badge {
+    background: #667eea;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 10px;
+    text-align: center;
+    margin: 2px 0;
+} */
+
+/* .trios-count {
+    background: #00b894;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 10px;
+    text-align: center;
+    margin: 2px 0;
+} */
+
+/* Position classes for different player counts */
+.hands-container.players-3 .player-hand:nth-child(1) {
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.hands-container.players-3 .player-hand:nth-child(2) {
+    top: 30%;
+    left: -75px;
+    transform: rotate(90deg);
+    transform-origin: center center;
+}
+
+.hands-container.players-3 .player-hand:nth-child(3) {
+    top: 30%;
+    right: -75px;
+    transform: rotate(-90deg);
+    transform-origin: center center;
+}
+
+.hands-container.players-4 .player-hand:nth-child(1) {
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.hands-container.players-4 .player-hand:nth-child(2) {
+    top: 50%;
+    left: -30px;
+    transform: translateY(-50%) rotate(90deg);
+    transform-origin: center center;
+}
+
+.hands-container.players-4 .player-hand:nth-child(3) {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) rotate(180deg);
+}
+
+/* Rotate content back for upside-down hands */
+.hands-container.players-4 .player-hand:nth-child(3) h4,
+.hands-container.players-4 .player-hand:nth-child(3) .cards {
+    transform: rotate(180deg);
+}
+
+.hands-container.players-4 .player-hand:nth-child(4) {
+    top: 50%;
+    right: -30px;
+    transform: translateY(-50%) rotate(-90deg);
+    transform-origin: center center;
+}
+
+.hands-container.players-5 .player-hand:nth-child(1) {
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.hands-container.players-5 .player-hand:nth-child(2) {
+    bottom: 25%;
+    left: -10px;
+    transform: rotate(72deg);
+    transform-origin: center center;
+}
+
+.hands-container.players-5 .player-hand:nth-child(3) {
+    top: -5%;
+    left: 10%;
+    transform: rotate(144deg);
+    transform-origin: center center;
+}
+
+/* Rotate content back for upside-down hands */
+.hands-container.players-5 .player-hand:nth-child(3) h4,
+.hands-container.players-5 .player-hand:nth-child(3) .cards {
+    transform: rotate(180deg);
+}
+
+.hands-container.players-5 .player-hand:nth-child(4) {
+    top: -5%;
+    right: 10%;
+    transform: rotate(-144deg);
+    transform-origin: center center;
+}
+
+/* Rotate content back for upside-down hands */
+.hands-container.players-5 .player-hand:nth-child(4) h4,
+.hands-container.players-5 .player-hand:nth-child(4) .cards {
+    transform: rotate(180deg);
+}
+
+.hands-container.players-5 .player-hand:nth-child(5) {
+    bottom: 25%;
+    right: -10px;
+    transform: rotate(-72deg);
+    transform-origin: center center;
+}
+
+.hands-container.players-6 .player-hand:nth-child(1) {
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.hands-container.players-6 .player-hand:nth-child(2) {
+    bottom: 15%;
+    left: -5px;
+    transform: rotate(60deg);
+    transform-origin: center center;
+}
+
+.hands-container.players-6 .player-hand:nth-child(3) {
+    top: 10%;
+    left: 5%;
+    transform: rotate(120deg);
+    transform-origin: center center;
+}
+
+.hands-container.players-6 .player-hand:nth-child(4) {
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%) rotate(180deg);
+}
+
+/* Rotate content back for upside-down hands */
+.hands-container.players-6 .player-hand:nth-child(4) h4,
+.hands-container.players-6 .player-hand:nth-child(4) .cards {
+    transform: rotate(180deg);
+}
+
+.hands-container.players-6 .player-hand:nth-child(5) {
+    top: 10%;
+    right: 5%;
+    transform: rotate(-120deg);
+    transform-origin: center center;
+}
+
+.hands-container.players-6 .player-hand:nth-child(6) {
+    bottom: 15%;
+    right: -5px;
+    transform: rotate(-60deg);
+    transform-origin: center center;
+}
+
+/* Rotate cards 180 degrees for upper corner players in 6-player games so they're readable */
+.hands-container.players-6 .player-hand:nth-child(3) .card,
+.hands-container.players-6 .player-hand:nth-child(5) .card {
+    transform: rotate(180deg);
+}
+
+/* Rotate player info for readability across all player counts */
+
+
+/* 4 players - rotate side and top players' info */
+.hands-container.players-4 .player-hand:nth-child(3) h4
+/* .hands-container.players-4 .player-hand:nth-child(3) .card-count-badge,
+.hands-container.players-4 .player-hand:nth-child(3) .trios-count */ {
+    transform: rotate(180deg);
+}
+
+/* 5 players - rotate all non-bottom players' info */
+.hands-container.players-5 .player-hand:nth-child(3) h4
+/* .hands-container.players-5 .player-hand:nth-child(3) .card-count-badge,
+.hands-container.players-5 .player-hand:nth-child(3) .trios-count */ {
+    transform: rotate(-180deg);
+}
+
+.hands-container.players-5 .player-hand:nth-child(4) h4
+/* .hands-container.players-5 .player-hand:nth-child(4) .card-count-badge,
+.hands-container.players-5 .player-hand:nth-child(4) .trios-count */ {
+    transform: rotate(180deg);
+}
+
+
+/* 6 players - rotate all non-bottom players' info */
+.hands-container.players-6 .player-hand:nth-child(3) h4
+/* .hands-container.players-6 .player-hand:nth-child(3) .card-count-badge,
+.hands-container.players-6 .player-hand:nth-child(3) .trios-count */ {
+    transform: rotate(-180deg);
+}
+
+.hands-container.players-6 .player-hand:nth-child(4) h4
+/* .hands-container.players-6 .player-hand:nth-child(4) .card-count-badge,
+.hands-container.players-6 .player-hand:nth-child(4) .trios-count */ {
+    transform: rotate(180deg);
+}
+
+.hands-container.players-6 .player-hand:nth-child(5) h4
+/* .hands-container.players-6 .player-hand:nth-child(5) .card-count-badge,
+.hands-container.players-6 .player-hand:nth-child(5) .trios-count */ {
+    transform: rotate(180deg);
+}
+
+
+.cards {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: nowrap;
+    overflow: visible;
+    padding: 15px 10px 5px 10px;
+}
+
+/* Player Trios */
+.player-trios {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.trio {
+    display: flex;
+    gap: 3px;
+    padding: 4px 6px;
+    background: rgba(0, 184, 148, 0.1);
+    border: 1px solid #00b894;
+    border-radius: 6px;
+    align-items: center;
+}
+
+.trio.special-seven {
+    background: rgba(214, 48, 49, 0.1);
+    border-color: #d63031;
+}
+
+.trio .card {
+    width: 25px;
+    height: 35px;
+    font-size: 0;
+    font-weight: bold;
+    border-width: 1px;
+    gap: 1px;
+    cursor: default !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Game Over Section */
+.game-over-container {
+    text-align: center;
+    padding: 40px;
+}
+
+.game-over-container h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #2d3436;
+}
+
+.game-over-container #gameOverMessage {
+    font-size: 1.3em;
+    margin-bottom: 30px;
+    color: #666;
+}
+
+#finalStats {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+/* Messages */
+.messages-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 2000;
+    max-width: 400px;
+}
+
+.message {
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.3s ease;
+}
+
+.message.success {
+    background: #00b894;
+    color: white;
+}
+
+.message.error {
+    background: #d63031;
+    color: white;
+}
+
+.message.info {
+    background: #0984e3;
+    color: white;
+}
+
+.message.warning {
+    background: #e17055;
+    color: white;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .lobby-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .room-header {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .players-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        margin: 20px;
+        width: calc(100% - 40px);
+    }
+    
+    .position-selection {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .position-selection label {
+        margin-bottom: 8px;
+    }
+    
+    .messages-container {
+        left: 10px;
+        right: 10px;
+        max-width: none;
+    }
+}
+
+/* Animation for card interactions */
+.card-animate {
+    animation: cardFlip 0.6s ease;
+}
+
+/* Animation for own cards - move up instead of flip */
+.card-animate-own {
+    animation: cardMoveUp 0.3s ease-out forwards;
+}
+
+/* Static elevated state for own cards (no animation) */
+.card-elevated-own {
+    transform: translateY(-10px);
+}
+
+/* Animation for returning own cards back down */
+.card-animate-own-return {
+    animation: cardMoveDown 0.3s ease-out forwards;
+}
+
+@keyframes cardFlip {
+    0% { transform: rotateY(0deg); }
+    50% { transform: rotateY(90deg); }
+    100% { transform: rotateY(0deg); }
+}
+
+@keyframes cardMoveUp {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-10px); }
+}
+
+@keyframes cardMoveDown {
+    0% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Clickable cards styling */
+.card.clickable.lowest {
+    cursor: pointer;
+    border: 2px solid #d63031;
+    box-shadow: 0 0 10px rgba(214, 48, 49, 0.3);
+    position: relative;
+}
+
+.card.clickable.highest {
+    cursor: pointer;
+    border: 2px solid #00b894;
+    box-shadow: 0 0 10px rgba(0, 184, 148, 0.3);
+    position: relative;
+}
+
+/* .card.clickable.lowest::before {
+    content: '⬇️';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 14px;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.card.clickable.highest::before {
+    content: '⬆️';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 14px;
+    z-index: 100;
+    pointer-events: none;
+} */
+
+.card.clickable.lowest:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(214, 48, 49, 0.5);
+    border-color: #b02a37;
+}
+
+.card.clickable.highest:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 184, 148, 0.5);
+    border-color: #00a085;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+/* Hover effects for player hands */
+.player-hand:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Special highlighting */
+.highlight {
+    animation: highlight 1s ease;
+}
+
+@keyframes highlight {
+    0%, 100% { background-color: inherit; }
+    50% { background-color: #ffeaa7; }
+} 

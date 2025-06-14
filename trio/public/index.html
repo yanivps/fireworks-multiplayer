@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trio - Strategic Card Collection Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="game-header">
+            <h1>🃏 Trio</h1>
+            <p>Strategic Card Collection Game</p>
+            <div class="connection-status">
+                <span id="connectionStatus" class="status connecting">Connecting...</span>
+            </div>
+        </header>
+
+        <!-- Lobby Section -->
+        <section id="lobbySection" class="section">
+            <div class="lobby-container">
+                <div class="create-room">
+                    <h2>Create Room</h2>
+                    <input type="text" id="createNickname" placeholder="Enter your nickname" maxlength="20">
+                    <button id="createRoomBtn" class="btn btn-primary">Create Room</button>
+                </div>
+                
+                <div class="join-room">
+                    <h2>Join Room</h2>
+                    <input type="text" id="joinRoomCode" placeholder="Room Code" maxlength="6">
+                    <input type="text" id="joinNickname" placeholder="Enter your nickname" maxlength="20">
+                    <button id="joinRoomBtn" class="btn btn-primary">Join Room</button>
+                </div>
+            </div>
+            
+            <div class="game-rules">
+                <h3>How to Play Trio</h3>
+                <ul>
+                    <li><strong>Goal:</strong> Collect 3 trios (sets of 3 identical numbers) or the special 7 trio to win</li>
+                    <li><strong>Turn:</strong> Reveal cards one at a time to form a trio</li>
+                    <li><strong>Actions:</strong> Ask for lowest/highest from any player's hand, or flip from middle pile</li>
+                    <li><strong>Rule:</strong> Must continue revealing as long as cards match your target number</li>
+                    <li><strong>Mismatch:</strong> All revealed cards return face-down, turn ends</li>
+                    <li><strong>Special:</strong> Three 7s wins immediately!</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Room Section -->
+        <section id="roomSection" class="section" style="display: none;">
+            <div class="room-header">
+                <h2>Room: <span id="roomCode">------</span></h2>
+                <button id="copyRoomBtn" class="btn btn-secondary">Copy Code</button>
+                <button id="leaveRoomBtn" class="btn btn-danger">Leave Room</button>
+            </div>
+            
+            <div class="players-section">
+                <h3>Players</h3>
+                <div id="playersList" class="players-list"></div>
+            </div>
+            
+            <div class="game-start">
+                <button id="startGameBtn" class="btn btn-success" style="display: none;">Start Game</button>
+                <p class="game-config">3-6 players required</p>
+            </div>
+        </section>
+
+        <!-- Game Section -->
+        <section id="gameSection" class="section" style="display: none;">
+            <!-- Game Status -->
+            <div class="game-status">
+                <div class="current-turn">
+                    <h3>Turn: <span id="currentPlayerName">Player</span></h3>
+                    <!-- <div class="turn-info">
+                        <span id="turnNumber">1</span> | 
+                        <span id="turnPhase">Choosing</span>
+                        <span id="targetNumber" style="display: none;"> | Target: <strong></strong></span>
+                    </div> -->
+                </div>
+            </div>
+
+            <!-- Action Area -->
+            <div class="action-area">
+                <!-- Mismatch Modal -->
+                <div id="mismatchModal" class="modal mismatch-modal hidden">
+                    <div class="modal-content">
+                        <h4>❌ Card Mismatch!</h4>
+                        <p id="mismatchMessage">All cards returned.</p>
+                        <div class="modal-buttons">
+                            <button id="confirmMismatchBtn" class="btn btn-primary">Continue</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game Over Modal -->
+                <div id="gameOverModal" class="modal game-over-modal hidden">
+                    <div class="modal-content">
+                        <h4 id="gameOverModalTitle">🎉 Game Over!</h4>
+                        <p id="gameOverModalMessage">Game has ended</p>
+                        <div id="gameOverModalStats" class="modal-stats">
+                            <!-- Final statistics -->
+                        </div>
+                        <div class="modal-buttons">
+                            <button id="backToLobbyModalBtn" class="btn btn-primary">Return to Lobby</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Board -->
+            <div class="game-board">
+                <!-- Middle Pile - Centered -->
+                <div class="middle-pile-center">
+                    <h4>Middle Pile (<span id="middleCardCount">0</span> cards)</h4>
+                    <div id="middlePileContainer" class="middle-pile-grid">
+                        <!-- Middle pile cards arranged in rows -->
+                    </div>
+                </div>
+                
+                <!-- Players Area -->
+                <div class="hands-container" id="handsContainer">
+                    <!-- Player hands will be positioned around the game area -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Over Section -->
+        <section id="gameOverSection" class="section" style="display: none;">
+            <div class="game-over-container">
+                <h2 id="gameOverTitle">Game Over</h2>
+                <div id="gameOverContent">
+                    <p id="gameOverMessage">Game has ended</p>
+                    <div id="finalStats">
+                        <!-- Final statistics -->
+                    </div>
+                </div>
+                <button id="backToLobbyBtn" class="btn btn-primary">Back to Lobby</button>
+            </div>
+        </section>
+
+        <!-- Messages -->
+        <div id="messages" class="messages-container"></div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html> 

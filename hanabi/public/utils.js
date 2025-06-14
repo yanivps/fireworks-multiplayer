@@ -187,17 +187,7 @@ function showGameEndSection(endData) {
         fireworksSummary.appendChild(fireworkDiv);
     });
     
-    // Show play again button if host
-    const playAgainBtn = document.getElementById('playAgainBtn');
-    if (isHost) {
-        playAgainBtn.style.display = 'inline-block';
-    } else {
-        playAgainBtn.style.display = 'none';
-    }
-}
-
-function playAgain() {
-    socket.emit('playAgain');
+    // Note: Play Again functionality has been removed
 }
 
 function backToLobby() {
@@ -425,7 +415,6 @@ window.addEventListener('beforeunload', (e) => {
 
 // Export functions that need to be called from HTML or other modules
 window.confirmClueVisualization = confirmClueVisualization;
-window.playAgain = playAgain;
 window.backToLobby = backToLobby;
 window.clearLog = clearLog;
 window.clearSavedData = clearSavedData;

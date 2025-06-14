@@ -448,12 +448,22 @@ function clearCluePreview() {
 
 // Game actions
 function performPlayCard(cardIndex) {
-    socket.emit('playCard', { cardIndex });
+    socket.emit('gameAction', { 
+        action: {
+            type: 'play',
+            cardIndex: cardIndex
+        }
+    });
     cancelAction();
 }
 
 function performDiscardCard(cardIndex) {
-    socket.emit('discardCard', { cardIndex });
+    socket.emit('gameAction', { 
+        action: {
+            type: 'discard',
+            cardIndex: cardIndex
+        }
+    });
     cancelAction();
 }
 
@@ -478,10 +488,13 @@ function performGiveClue(targetPlayerId, cardIndex) {
         clueValue: clueValue
     });
     
-    socket.emit('giveClue', {
-        targetPlayerId: targetPlayerId,
-        clueType: clueType,
-        clueValue: clueValue
+    socket.emit('gameAction', {
+        action: {
+            type: 'clue',
+            targetPlayerId: targetPlayerId,
+            clueType: clueType,
+            clueValue: clueValue
+        }
     });
     
     cancelAction();
