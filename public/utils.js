@@ -354,12 +354,19 @@ function setupInputHandlers() {
 // Keyboard shortcuts
 function setupKeyboardShortcuts() {
     document.addEventListener('keydown', (e) => {
+        // Check if clue confirmation modal is active
+        const clueModal = document.getElementById('clueConfirmationOverlay');
+        if (clueModal && clueModal.classList.contains('show')) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                confirmClueVisualization();
+                return;
+            }
+            return; // Don't handle other shortcuts while modal is active
+        }
+        
         // Only handle shortcuts during game and when it's player's turn
         if (!gameState || !isMyTurn()) return;
-        
-        // Disable shortcuts if clue confirmation modal is active
-        const clueModal = document.getElementById('clueConfirmationOverlay');
-        if (clueModal && clueModal.classList.contains('show')) return;
         
         // Ignore if user is typing in an input field
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
