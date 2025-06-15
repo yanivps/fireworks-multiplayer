@@ -4,8 +4,8 @@
   "description": "Online multiplayer Hanabi card game",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "start": "node trio/src/server.js",
+    "dev": "nodemon trio/src/server.js",
     "test": "jest"
   },
   "dependencies": {
